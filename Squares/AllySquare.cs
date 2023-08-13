@@ -20,19 +20,19 @@ namespace Catch_the_Square.Squares
             if (shape.Size.X < minSize.X || shape.Size.Y < minSize.Y) shape.Size = minSize;
             this.speed = speed;
             this.bounds = bounds;
-            Vector2f shapeCenter = new Vector2f(shape.Size.X / 2, shape.Size.Y / 2);
-            this.shape.Position = new Vector2f((bounds.Width - bounds.Left - shapeCenter.X) / 2, (bounds.Height - bounds.Top - shapeCenter.Y) / 2);
             this.shape.FillColor = Color.Black;
             tag = Tag.Black;
+            this.shape.Position = InitializePosition();
             UpdateDestination();
         }
 
         protected override Tag Click()
         {
             shape.Size -= new Vector2f(20, 20);
-            shape.Position = new Vector2f(Mathf.rand.Next(bounds.Left, bounds.Width - (int)shape.Size.Y), Mathf.rand.Next(bounds.Top, bounds.Height - (int)shape.Size.X));
+            shape.Position = new Vector2f(Mathf.rand.Next(bounds.Left, bounds.Left + bounds.Width - (int)shape.Size.Y), 
+                Mathf.rand.Next(bounds.Top, bounds.Top + bounds.Height - (int)shape.Size.X));
             if (shape.Size.X < minSize.X || shape.Size.Y < minSize.Y) active = false;
-            return Tag.Black;
+            return tag;
         }
     }
 }

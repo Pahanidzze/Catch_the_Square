@@ -62,7 +62,7 @@
     <Compile Include="SquareController.cs" />
     <Compile Include="Squares\AllySquare.cs" />
     <Compile Include="Squares\EnemySquare.cs" />
-    <Compile Include="Squares\ReducingSquare.cs" />
+    <Compile Include="Squares\BonusSquare.cs" />
     <Compile Include="Squares\Square.cs" />
   </ItemGroup>
   <ItemGroup>

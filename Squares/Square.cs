@@ -16,9 +16,10 @@ namespace Catch_the_Square.Squares
         public uint speed { get; protected set; }
         public IntRect bounds { get; protected set; }
         public Vector2f initSize { get; protected set; }
+        public Tag tag { get; protected set; }
+        public int timer { get; protected set; }
         protected RectangleShape shape;
         protected Vector2f destination;
-        protected Tag tag;
 
         protected static readonly Vector2f minSize = new Vector2f(40, 40);
 
@@ -28,8 +29,16 @@ namespace Catch_the_Square.Squares
             float vectorLength = (float)Math.Sqrt(Math.Pow(vector.X, 2) + Math.Pow(vector.Y, 2));
             if (vectorLength <= speed)
             {
-                shape.Position = destination;
-                UpdateDestination();
+                if (tag == Tag.Black || tag == Tag.Red)
+                {
+                    shape.Position = destination;
+                    UpdateDestination();
+                }
+                else if (active)
+                {
+                    active = false;
+                    timer = -1;
+                }
             }
             else
             {
@@ -44,16 +53,68 @@ namespace Catch_the_Square.Squares
             win.Draw(shape);
         }
 
-        protected void UpdateDestination()
+        protected Vector2f InitializePosition()
         {
-            destination.X = Mathf.rand.Next(bounds.Left, bounds.Width - (int)shape.Size.X);
-            destination.Y = Mathf.rand.Next(bounds.Top, bounds.Height - (int)shape.Size.Y);
+            Vector2f shapeCenter = new Vector2f(shape.Size.X / 2, shape.Size.Y / 2);
+            return new Vector2f(bounds.Left + bounds.Width / 2 - shapeCenter.X, bounds.Top + bounds.Height / 2 - shapeCenter.Y);
         }
 
-        protected void UpdateBonusDestination()
+        protected Vector2f InitializeBonusPosition(Border borderPosition)
         {
-            destination.X = Mathf.rand.Next(bounds.Left, bounds.Width - (int)shape.Size.X);
-            destination.Y = Mathf.rand.Next(bounds.Top, bounds.Height - (int)shape.Size.Y);
+            Vector2f position;
+            if (borderPosition == Border.Top)
+            {
+                position = new Vector2f(Mathf.rand.Next(bounds.Left, (int)(bounds.Left + bounds.Width - shape.Size.X)), bounds.Top - shape.Size.Y);
+            }
+            else if (borderPosition == Border.Bottom)
+            {
+                position = new Vector2f(Mathf.rand.Next(bounds.Left, (int)(bounds.Left + bounds.Width - shape.Size.X)), bounds.Top + bounds.Height);
+            }
+            else if (borderPosition == Border.Left)
+            {
+                position = new Vector2f(bounds.Left - shape.Size.X, Mathf.rand.Next(bounds.Top, (int)(bounds.Top + bounds.Height - shape.Size.Y)));
+            }
+            else
+            {
+                position = new Vector2f(bounds.Left + bounds.Width, Mathf.rand.Next(bounds.Top, (int)(bounds.Top + bounds.Height - shape.Size.Y)));
+            }
+            return position;
+        }
+
+        protected void UpdateDestination()
+        {
+            destination.X = Mathf.rand.Next(bounds.Left, bounds.Left + bounds.Width - (int)shape.Size.X);
+            destination.Y = Mathf.rand.Next(bounds.Top, bounds.Top + bounds.Height - (int)shape.Size.Y);
+        }
+
+        protected void UpdateBonusDestination(Border borderPosition)
+        {
+            Border borderDestination = borderPosition;
+            while (borderDestination == borderPosition)
+            {
+                borderDestination = (Border)Mathf.rand.Next(4);
+            }
+            destination = InitializeBonusPosition(borderDestination);
+        }
+
+        public void Slowdown()
+        {
+            speed /= 2;
+        }
+
+        public void Accelerate()
+        {
+            speed *= 2;
+        }
+
+        public void Decrease()
+        {
+            shape.Size /= 2;
+        }
+
+        public void Increase()
+        {
+            shape.Size *= 2;
         }
 
         public Tag ClickCheck(Vector2i mousePosition)
@@ -70,7 +131,8 @@ namespace Catch_the_Square.Squares
             return result;
         }
 
-        protected virtual Tag Click() { return Tag.Black; }
+        protected virtual Tag Click() { return tag; }
+        public virtual void Countdown() { }
 
         public enum Tag
         {
@@ -79,6 +141,20 @@ namespace Catch_the_Square.Squares
             Red = 2,
             Blue = 3,
             Yellow = 4
+        }
+
+        public enum BonusTag
+        {
+            Blue = 3,
+            Yellow = 4
+        }
+
+        public enum Border
+        {
+            Top = 0,
+            Bottom = 1,
+            Left = 2,
+            Right = 3
         }
     }
 }

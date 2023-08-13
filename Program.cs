@@ -18,10 +18,7 @@ namespace Catch_the_Square
         private const uint windowHeight = 600;
         private const uint framerateLimit = 60;
         private const string fontFilepath = "comic.ttf";
-        private const uint allySquareNumber = 10;
-        private const uint enemySquareNumber = 10;
-        private const float squareSize = 100;
-        private const uint squareStartSpeed = 5;
+        
         
         private static int score = 0;
         private static int highScore = 0;
@@ -32,17 +29,17 @@ namespace Catch_the_Square
             window.SetFramerateLimit(framerateLimit);
             window.Closed += Window_Closed;
             Font font = new Font(fontFilepath);
-            List<Square> squares = SquareController.Initialize(allySquareNumber, enemySquareNumber, squareSize, squareStartSpeed, window);
+            List<Square> squares = SquareController.Initialize(window);
             HeadUpDisplay HUD = new HeadUpDisplay(window, font);
             while (window.IsOpen)
             {
                 window.Clear(new Color(230, 230, 230));
                 window.DispatchEvents();
-                SquareController.Pressed pressed = SquareController.Update(Mouse.GetPosition(window), squares);
+                SquareController.Pressed pressed = SquareController.Update(Mouse.GetPosition(window), squares, window);
                 if (Keyboard.IsKeyPressed(Keyboard.Key.R) || pressed == SquareController.Pressed.Red)
                 {
                     squares.Clear();
-                    squares = SquareController.Initialize(allySquareNumber, enemySquareNumber, squareSize, squareStartSpeed, window);
+                    squares = SquareController.Initialize(window);
                     if (score > highScore) highScore = score;
                     score = 0;
                 }
