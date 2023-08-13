@@ -11,41 +11,21 @@ using Catch_the_Square.Squares;
 
 namespace Catch_the_Square
 {
-    class Program
+    static class Program
     {
-        private const string windowTitle = "Catch the Square";
-        private const uint windowWidth = 800;
-        private const uint windowHeight = 600;
-        private const uint framerateLimit = 60;
-        private const string fontFilepath = "comic.ttf";
-        
-        
-        private static int score = 0;
-        private static int highScore = 0;
-
         private static void Main()
         {
-            RenderWindow window = new RenderWindow(new VideoMode(windowWidth, windowHeight), windowTitle);
-            window.SetFramerateLimit(framerateLimit);
+            RenderWindow window = new RenderWindow(new VideoMode(Config.windowWidth, Config.windowHeight), Config.windowTitle);
+            window.SetFramerateLimit(Config.framerateLimit);
             window.Closed += Window_Closed;
-            Font font = new Font(fontFilepath);
-            List<Square> squares = SquareController.Initialize(window);
-            HeadUpDisplay HUD = new HeadUpDisplay(window, font);
+            Font font = new Font(Config.fontFilepath);
+            Audio.PlayMusic(Config.musicFilepath, 30);
+            Game game = new Game(window, font);
             while (window.IsOpen)
             {
                 window.Clear(new Color(230, 230, 230));
                 window.DispatchEvents();
-                SquareController.Pressed pressed = SquareController.Update(Mouse.GetPosition(window), squares, window);
-                if (Keyboard.IsKeyPressed(Keyboard.Key.R) || pressed == SquareController.Pressed.Red)
-                {
-                    squares.Clear();
-                    squares = SquareController.Initialize(window);
-                    if (score > highScore) highScore = score;
-                    score = 0;
-                }
-                else if (pressed == SquareController.Pressed.Black) score++;
-                HUD.Draw(window, score, highScore);
-                SquareController.Draw(window, squares);
+                game.Update(window);
                 window.Display();
             }
         }

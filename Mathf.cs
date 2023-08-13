@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Catch_the_Square
 {
-    class Mathf
+    static class Mathf
     {
         public static Random rand = new Random();
     }

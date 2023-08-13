@@ -13,12 +13,6 @@ namespace Catch_the_Square
 {
     static class SquareController
     {
-        private const float BonusSquareSpawnChance = 1 / 600f;
-        private const uint allySquareNumber = 10;
-        private const uint enemySquareNumber = 10;
-        private const float squareSize = 100;
-        private const uint squareStartSpeed = 5;
-
         private static List<Square> squareList;
 
         private static Pressed clickStatus = Pressed.Not;
@@ -26,13 +20,15 @@ namespace Catch_the_Square
         public static List<Square> Initialize(Window window)
         {
             squareList = new List<Square>();
-            for (int i = 0; i < allySquareNumber; i++)
+            for (int i = 0; i < Config.allySquareNumber; i++)
             {
-                squareList.Add(new AllySquare(new RectangleShape(new Vector2f(squareSize, squareSize)), squareStartSpeed, new IntRect(0, 0, (int)window.Size.X, (int)window.Size.Y)));
+                squareList.Add(new AllySquare(new RectangleShape(new Vector2f(Config.squareSize, Config.squareSize)), Config.squareStartSpeed, 
+                    new IntRect(0, 0, (int)window.Size.X, (int)window.Size.Y)));
             }
-            for (int i = 0; i < enemySquareNumber; i++)
+            for (int i = 0; i < Config.enemySquareNumber; i++)
             {
-                squareList.Add(new EnemySquare(new RectangleShape(new Vector2f(squareSize, squareSize)), squareStartSpeed, new IntRect(0, 0, (int)window.Size.X, (int)window.Size.Y)));
+                squareList.Add(new EnemySquare(new RectangleShape(new Vector2f(Config.squareSize, Config.squareSize)), Config.squareStartSpeed, 
+                    new IntRect(0, 0, (int)window.Size.X, (int)window.Size.Y)));
             }
             return squareList;
         }
@@ -98,16 +94,16 @@ namespace Catch_the_Square
 
         private static void SpawnBonus(Window window)
         {
-            if (Mathf.rand.Next((int)(1 / BonusSquareSpawnChance)) == 0)
+            if (Mathf.rand.Next((int)(1 / Config.BonusSquareSpawnChance)) == 0)
             {
                 if (Mathf.rand.Next(2) == 0)
                 {
-                    squareList.Insert(0, new BonusSquare(new RectangleShape(new Vector2f(squareSize, squareSize)), squareStartSpeed,
+                    squareList.Insert(0, new BonusSquare(new RectangleShape(new Vector2f(Config.squareSize, Config.squareSize)), Config.squareStartSpeed,
                         new IntRect(0, 0, (int)window.Size.X, (int)window.Size.Y), Square.BonusTag.Blue));
                 }
                 else
                 {
-                    squareList.Insert(0, new BonusSquare(new RectangleShape(new Vector2f(squareSize, squareSize)), squareStartSpeed,
+                    squareList.Insert(0, new BonusSquare(new RectangleShape(new Vector2f(Config.squareSize, Config.squareSize)), Config.squareStartSpeed,
                         new IntRect(0, 0, (int)window.Size.X, (int)window.Size.Y), Square.BonusTag.Yellow));
                 }
             }
