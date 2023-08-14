@@ -19,24 +19,24 @@ namespace Catch_the_Square
 
         public HeadUpDisplay(Window window, Font font)
         {
-            instructionText = new Text(Config.instructionTextPreparation, font, 24)
+            instructionText = new Text(Config.instructionTextPreparation, font, Config.HUDCharacterSize)
             {
                 Position = new Vector2f(10, 10),
                 FillColor = Color.Black
             };
-            retryInstructionText = new Text(Config.retryInstructionTextPreparation, font, 24)
+            retryInstructionText = new Text(Config.retryInstructionTextPreparation, font, Config.HUDCharacterSize)
             {
                 Position = new Vector2f(10, 40),
                 FillColor = Color.Black
             };
-            scoreText = new Text("", font, 24)
+            scoreText = new Text("", font, Config.HUDCharacterSize)
             {
-                Position = new Vector2f(10, window.Size.Y - 64),
+                Position = new Vector2f(10, window.Size.Y - (40 + Config.HUDCharacterSize)),
                 FillColor = Color.Black
             };
-            highScoreText = new Text("", font, 24)
+            highScoreText = new Text("", font, Config.HUDCharacterSize)
             {
-                Position = new Vector2f(10, window.Size.Y - 34),
+                Position = new Vector2f(10, window.Size.Y - (10 + Config.HUDCharacterSize)),
                 FillColor = Color.Black
             };
         }

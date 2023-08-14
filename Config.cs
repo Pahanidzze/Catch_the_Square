@@ -20,5 +20,6 @@
         public const string retryInstructionTextPreparation = "Для перезапуска нажмите \"R\"";
         public const string scoreTextPreparation = "Очки: ";
         public const string highScoreTextPreparation = "Рекорд: ";
+        public const uint HUDCharacterSize = 24;
     }
 }
