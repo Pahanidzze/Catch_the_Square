@@ -84,7 +84,7 @@ namespace Catch_the_Square
                 if (squareList[index].timer > 0) squareList[index].Countdown();
                 else
                 {
-                    EnemyAccelerate();
+                    if (squareList[index].timer == 0) EnemyAccelerate();
                     squareList.RemoveAt(index);
                     result = 1;
                 }
