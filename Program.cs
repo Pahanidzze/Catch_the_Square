@@ -12,7 +12,7 @@ namespace Catch_the_Square
             window.SetFramerateLimit(Config.framerateLimit);
             window.Closed += Window_Closed;
             Font comic = new Font(Config.comicFontFilepath);
-            Font arial = new Font(Config.arialFontFilepath);Audio.PlayMusic(Config.musicFilepath, 30);
+            Audio.PlayMusic(Config.musicFilepath, 30);
             Game.Game game = new Game.Game(window, comic);
             while (window.IsOpen)
             {
