@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SFML.Audio;
+﻿using System.Collections.Generic;
 using SFML.Graphics;
-using SFML.System;
 using SFML.Window;
 using Catch_the_Square.Squares;
 
-namespace Catch_the_Square
+namespace Catch_the_Square.Game
 {
     class Game
     {

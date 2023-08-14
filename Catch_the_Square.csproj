@@ -55,14 +55,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Menu\Button.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="HeadUpDisplay.cs" />
+    <Compile Include="Game\Game.cs" />
+    <Compile Include="Game\HeadUpDisplay.cs" />
     <Compile Include="Mathf.cs" />
+    <Compile Include="Menu\Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Audio.cs" />
-    <Compile Include="SquareController.cs" />
+    <Compile Include="Game\SquareController.cs" />
     <Compile Include="Squares\AllySquare.cs" />
     <Compile Include="Squares\EnemySquare.cs" />
     <Compile Include="Squares\BonusSquare.cs" />

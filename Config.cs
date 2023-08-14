@@ -2,11 +2,16 @@
 {
     public struct Config
     {
+        public const byte backgroundR = 230;
+        public const byte backgroundG = 230;
+        public const byte backgroundB = 230;
+
         public const string windowTitle = "Catch the Square";
         public const uint windowWidth = 800;
         public const uint windowHeight = 600;
         public const uint framerateLimit = 60;
-        public const string fontFilepath = "comic.ttf";
+        public const string comicFontFilepath = "comic.ttf";
+        public const string arialFontFilepath = "arial.ttf";
         public const string musicFilepath = "bg_music.wav";
         public const string actionSoundFilepath = "ActionSound.wav";
 
